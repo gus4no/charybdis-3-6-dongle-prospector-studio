@@ -2,184 +2,82 @@
 
 ![3x6](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/1.JPG)
 
-## Что такое донгл и зачем он нужен
+## What is a dongle and why is it needed?
 
-Донгл по сути это третий контроллер. Это такой же контроллер, как и два которые используются в двух половинах клавиатур. 
+A dongle is essentially a third controller. It's the same as the two controllers used in the two halves of the keyboard.
 
-В обычном варианте клавиатура может работать и без донгла. Но в этом случае один из контроллеров в какой-то из половин должен быть главный, а втолрой второстепенным. Главный контроллер их двух в этом случае держит два соединения - с компьютером к которому подключена клавиатура и так же держит соединение со второй половиной. Из-за этого батарея у главной половины разряжается в несколько раз быстрее. 
+In a typical keyboard, it can work without a dongle. However, in this case, one of the controllers in one half must be the primary controller, and the other must be the secondary controller. In this case, the primary controller maintains two connections: one with the computer the keyboard is connected to, and one with the other half. Because of this, the battery in the primary half drains several times faster.
 
-Донгл спасает от этого, по факту сам он является главным контроллером и при его использовании контроллеры которые находятся в двух половинах являются второстепенными. Из-за этого батареи в них будут держать заряд значительно дольше. 
+A dongle prevents this; it is essentially the primary controller, and when used, the controllers in the two halves act as secondary controllers. Because of this, their batteries will hold a charge significantly longer.
 
-Второй плюс донгла заключается в том, что донгл может работать в биосе (до того как загружается операционка и инициализируется блютуз) и так же может работать с компами у которых вообще нет блютуса. 
+The dongle's second advantage is that it can work in the BIOS (before the OS boots and Bluetooth initializes) and can also work with computers that don't have Bluetooth at all.
 
-виды донгла
+Dongle Types
 
-Для донгла именно в этой прошивке вы можете использовать три контроллера 
+For this particular firmware version of the dongle, you can use three controllers:
 
-- nice-nano-v2 и его аналоги
+- nice-nano-v2 and its analogs
 - xiao ble
-- Prospector (у которого внутри по факту тоже xiao ble)
+- Prospector (which actually also has a xiao ble controller inside)
 
-| Nice Nano v2   | Xiao    | Prospector       |
-| ------ | ----- | ------- |
+| Nice Nano v2 | Xiao | Prospector |
+| ------ | ------- |
 | ![nicenano](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/2.JPG) | ![xiao](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/3.JPG) | ![Prospector](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/4.JPG) |
 
-## Как использовать мышку? Где кнопки?
+## How do I use the mouse? Where are the buttons?
 
-В тот момент когда вы начинаете двигать шар кнопки на левом тамб-кластере превращаются в кнопки мыши. После того как вы перестаете двигать курсор мыши они снова становятся обычными кнопками. 
-Если вас не устраивает такой вариант и вы хотели бы чтобы где-то всегда были кнопки мыши и они не зависели бы от движения шара, вы можете перенастроить это поведение в файле charybdis.keymap
+When you start moving the ball, the buttons on the left thumb cluster turn into mouse buttons. Once you stop moving the mouse cursor, they return to normal buttons.
+If you don't like this option and would like the mouse buttons to always be present and independent of the ball's movement, you can reconfigure this behavior in the charybdis.keymap file.
 
 ![Mouse](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/15.JPG)
 
-Если вы хотите настроить время которое кнопки будут оставаться кнопками мыши после движения шара то вы можете сделать это в файле Update split_input_common.dtsi
-Это делается в строке `input-processors = <&auto_mouse_layer MOUSE 5000>;`
+If you want to adjust the amount of time the buttons remain mouse buttons after the ball moves, you can do so in the Update split_input_common.dtsi file.
+This is done in the line `input-processors = <&auto_mouse_layer MOUSE 5000>;`
 
-## Как использовать прокрутку шаром?
+## How to use ball scrolling?
 
-В клавиатуре реализована довольно интересная фича - прокрутка контента во все стороны используя шар трекбола. 
-В моей прошивке шар начинает работать с прокруткой при зажатии средней кнопки в левом тамб кластере.  
+The keyboard has a rather interesting feature: scrolling content in all directions using the trackball.
 
-В файле split_input_common.dtsi вы можете настроить инверсии на любые оси
+In my firmware, the trackball starts scrolling when I hold down the middle button in the left thumb cluster.
 
-## Как использовать ZMK STUDIO
+In the split_input_common.dtsi file, you can set up inversions for any axis.
 
-ZMK STUDIO это графическая программа в которой вы можете менять раскладку на лету. И при этом вам не надо копаться в коде. А изменения применяются сразу же. 
-Для того чтобы использовать ее, вам нужен клиент. 
-Вы можете использовать ZMK STUDIO в браузере через сайт https://zmk.studio/ но удобнее использовать ZMK STUDIO скачав нативный клиент тут, он есть под любую ОС - https://zmk.studio/download
+## How to use ZMK STUDIO
 
-Так же в своей раскладке вам надо добавить `&studio_unlock` на какую-то кнопку или на какую-то комбу. 
+ZMK STUDIO is a graphical program that lets you change the layout on the fly. You don't have to dig into the code. Changes are applied immediately.
 
-Если вы запустите ZMK тогда когда у вас клавиатура не подключена к компу (или у клавиатуры в прошивке не включена поддержка ZMK STUDIO) то вы увидите просто  пустое окно.
+To use it, you need a client.
 
-Если вы подключите клавиатуру, то увидите ее в ZMK
+You can use ZMK STUDIO in your browser via the website https://zmk.studio/, but it's more convenient to download the native client here. It's available for any OS - https://zmk.studio/download
 
-После этого можете кликнуть на клавиатуру к которой хотите подключиться (их может быть  несколько если к компу подключено несколько клавиатур, в этом случае выберите ту которая вам нужна)
+You also need to add `&studio_unlock` to a key or combination in your layout.
+
+If you launch ZMK when your keyboard isn't connected to your computer (or if your keyboard doesn't have ZMK STUDIO support enabled in the firmware), you'll see a blank window.
+
+If you connect a keyboard, you'll see it in ZMK.
+
+After that, you can click on the keyboard you want to connect to (there may be several if you have multiple keyboards connected to your computer; in this case, select the one you need).
 
 ![Prospector](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/16.png)
 
-ZMK STUDIO попросит вас разлочить клавиатуру для того чтобы вносить изменения в прошивку и вам надо нажать на кнопку (или на кобмо), нажать надо туда куда вы вставили &studio_unlock.
+ZMK STUDIO will ask you to unlock the keyboard in order to make changes to the firmware. You need to press the button (or combo) where you inserted &studio_unlock.
 
-В моей текущей раскладке это настроено на комбо, которое стоит на первой и пятой кнопке. Их надо нажать одновременно и ZMK STUDIO разлочится. 
+In my current keyboard layout, this is set to a combo between the first and fifth buttons. Press them simultaneously, and ZMK STUDIO will unlock.
 
 ![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/5.JPG)
 
-Чтобы разлочить надо нажать на кнопки как на картинке. Нажать надо одновременно на две эти кнопки. 
+To unlock, press the buttons as shown in the picture. Press both of these buttons simultaneously.
 
 ![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/18.png)
 
-После этого мы увидим интерфейс ZMK STUDIO в котором можно на лету менять все значения клавиш.
+After that, we'll see the ZMK STUDIO interface, where you can change all key assignments on the fly.
 
 ![123123](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/17.png)
 
-Если вы не хотите каждый раз разблокировать ZMK STUDIO то можете добавить вот этот параметр - CONFIG_ZMK_STUDIO_LOCKING=n
+If you don't want to unlock ZMK STUDIO every time, you can add this parameter - CONFIG_ZMK_STUDIO_LOCKING=n
 
-## Как скомпилировать прошивку
+## How to compile the firmware
 
-Прошивку можно скомпилировать через гитхаб или собрать ее локально. 
-Самый простой способ - собрать через гитхаб. Собрать локально сложнее и можете почитать гайды в интернете как это делать для вашей ос. Тут я расскажу о том как собрать через гитхаю.
-Собственно, вы уже смотрите на репозиторий который вам нужен для прошивки. Для того чтобы получить файлы прошивки вам надо склонировать этот репозитой к себе в свой гитхаб аккаунт. Это делается кнопкой Clone на главной странице этой репы. 
+You can compile the firmware via GitHub or build it locally.
 
-Далее мы идем во вкладку Actions и включаем экшены. 
-
-После того как включили при каждом изменении файла в репозитории у вас будет срабатывать экнш и будет компилироваться прошивка. Прям внутри гитхаба.
-
-Если все сработало хорошо, то через некоторое время (это около минуты или типа того) у вас появится зеленая галочка напротив экшена. Если там то все отлично. Если появилась красная галочка, то вы допустили ошибку в синтаксисе. В этом случае исправьте ошибку или откатитесь до последнего изменения. 
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/19.png)
-
-Если галочка синяя то мы можем кликнуть на этот экшн и увидим следующее
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/20.png)
-
-Все что нам тут нужно это сам файл с прошивкой, который нам надо скачать. Я показал красной стрелкой куда надо кликнуть для того чтобы его скачать. 
-
-После того как мы скачали этот архив нам надо его распаковать.
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/21.png)
-
-Внутри мы увидим несколько файлов.
-
-| File   | Comment                                                                 |
-| :----- | :---------------------------------------------------------------------- |
-| charybdis_dongle prospector_adapter-seeeduino_xiao_ble-zmk.uf2  | Если вы используете в качестве донгла проспектор, то вам надо будет прошивать его этим файлом |
-| charybdis_dongle-nice_nano_v2-zmk.uf2    | Если вы используете в качестве донгла контроллер xiao, то вам надо будет прошивать его этим файлом |
-| charybdis_dongle-seeeduino_xiao_ble-zmk.uf2 | Если вы используете в качестве донгла nice!nano v2 или его аналог, то вам надо будет прошивать его этим файлом |
-| charybdis_left-nice_nano_v2-zmk.uf2 | файл прошивкл для левой половины |
-| charybdis_right-nice_nano_v2-zmk.uf2 | Файл прошивки для правой половины |
-| settings_reset-nice_nano_v2-zmk.uf2 | Ресет файл для nice_nano_v2 |
-| settings_reset-seeeduino_xiao_ble-zmk.uf2 | Ресет файл для xiao и для проспектора |
-
-## Для чего нужны ресет файлы
-
-В некоторых случая бывает ситуация, когда донгл не видит какую-то из половин. Или вы по какой-то причине не можете обновить прошивку. Короче говоря в случае возникновения всяких странностей перед тем как скидывать прошивку на контроллер, этот контроллер можно сбросить до заводского состояния. 
-
-Делается это как раз скидыванием файла ресета на контроллер. 
-
-## Как скинуть прошивку на контроллер
-
-Скинуть сам файл прошивки на контроллер очень просто. Для этого не нужны никакие дополнительные девайсы. А шанс окирпичить контроллер не очень-то и большой. Так что бояться не стоит. 
-
-Все что нужно - подключить контроллер к компу и нажать на кнопку ресет. В случае использования контроллера XIAO или проспектора у вас буквально есть физическая кнопка, на которую надо просто дважды кликнуть.
-
-После этого у вас откроется окно как будто вы воткнули флешку в свой комп. 
-
-В это окно надо перетащить файл с прошивкой и кинуть его туда. После того как файл скопируется это окно закроется. Не переживайте о том, что окно само закрылось. Так и должно быть. 
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/22.png)
-
-Если вы прошиваете половину клавиатуры, а не XIAO или проспектор, то вы можете кликнуть дважды на кнопку ресет на самой клавиатуре. Они бывают в разных местах. Конкретно у клавиатуры 3x6 она в довольно дурацком месте, но в принципе до него можно дотянуться мизинцем.
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/10.JPG)
-
-Бывают ситуации когда кнопки нет или может быть она не припаяна. Тогда вы можете просто сомкнуть пинцетом два контакта. Для этого можно взять пинцет или любой другой проводник и дважды быстро сомкнуть их. Пины надо смыкать те, которые показаны на картинке ниже.
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/11.JPG)
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/12.JPG)
-
-Точно так же можно пинцетом сомкнуть пины на контроллере nice nano если вы используете его как донгл
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/9.JPG)
-
-Прошивать так нужно только первый раз. 
-
-Если вы уже используете прошивку и только поменяли в ней что-то в кеймапе (переназначили клавиши), то вам не надо перепрошивать сами половины клавиатуры. Вам нужно только перепрошить донгл. 
-
-И если у вас донгл уже спарен с половинами, то вы можете даже не нажимать физическую кнопку ресет на донгле и можете не смыкать контакты. ВЫ можете вызвать сам бутлоадер донгла с клавиатуры. 
-
-Для этого у меня в текущей прошивке есть комбо. Вам надо просто одновременно нажать на клавиатуре две кнопки как на картинке. 
-
-![12323232](https://github.com/devpew/charybdis-3-6-dongle-prospector-studio/blob/main/img/6.JPG)
-
-## Порядок прошивки клавиатура
-
-Если вы используете клавиатуру с донглом то по факту у вас три контроллера. Главным контроллером является сам донгл. 
-Если вы меняете только прошивку, то прошивать можно только главную половину (только донгл). 
-А если у вас в вашей клавиатуре сейчас не включена ZMK STUDIO, а вы хотите ее включить, то перепрошивать первый раз придется все три контроллера. 
-
-И делать это нужно в правильной последовательности. Иначе у вас может не подсоединиться одна из половин. Или же донгл может не увидеть ваши половины. 
-
-Первым делом надо отключить донгл от компа и выключить обе половины клавиатуры. 
-
-Берем правую половину клавиатры. Подключаем ее к компу и вводим в режим бутлоадера (нажимаем на кнопку ресет дважды). Скидываем сначала на нее файл ресета. Опять вводим ее в режим бутлоадера и после этого скидываем на нее прошивку для правой половины. Проверяем что половина выключена (выключатель находится в правом положении)
-
-Берем левую половину клавиатры. Подключаем ее к компу и вводим в режим бутлоадера (нажимаем на кнопку ресет дважды). Скидываем сначала на нее файл ресета. Опять вводим ее в режим бутлоадера и после этого скидываем на нее прошивку для левой половины. Проверяем что половина выключена (выключатель находится в правом положении)
-
-Убеждаемся еще раз что обе половины выключены. 
-
-Теперь берем донгл. Подключаем к компу и вводим в режим бутлоадера. Скидываем сначала файл ресета. После этого прошиваем донгл нужной прошивкой (про это написано выше). 
-
-Теперь одновременно включаем две половины. И все должно заработать через несколько секунд.
-
-## Если у меня клавиатура с донглом, могу ли я использовать ее без донгла просто подключая ее по Bluetooth?
-
-Да, по факту вы можете просто не использовать донгл. 
-Но для этого на две половины клавиатуры вам нужно будет накатить прошивку без донгла. В этом случае у вас правая половина будет главной. 
-
-## Как изменить чувствительность трекбола
-
-Для того чтобы поменять чувствительность трекбола вы можете изменить значение CPI в файле charybdis_3610.dtsi
-Так же при изменении чувствительности нужно будет заново скинуть файл прошивки не только на донгл, но и на ту половину в которой находится шар
-
-## Что делать если половины не видят друг друга
-
-Если половины не видят друг друга вам надо заново перепрошить все половины. И так же нужно до того как скинете прошивку скинуть ресет файл на две половины и на донгл.
+The easiest way is to build it via GitHub. Building locally is more difficult, and you can read guides online on how to do this.
