@@ -3,24 +3,21 @@
 #include <dt-bindings/zmk/pointing.h>
 
 #define BASE 0
-#define MOUSE 1
-#define SYMBOL 2
-#define NUMBER 3
-#define FUNCTION 4
-#define GAME 5
-#define RESET 6
+#define NUM 1
+#define NAV 2
+#define MOUSE 3
+#define SCROLL 4
+#define SNIPE 5
 
 #define KEYS_L 0 1 2 3 4 10 11 12 13 14 20 21 22 23 24
 #define KEYS_R 5 6 7 8 9 15 16 17 18 19 25 26 27 28 29
 #define THUMBS 30 31 32 33 34 35
+#define AS(keycode) &as LS(keycode) keycode     // Autoshift Macro
+
 
 &sk {
   release-after-ms = <600>;
   quick-release;
-};
-
-&sl {
-  ignore-modifiers;
 };
 
 &mt {
@@ -33,12 +30,24 @@
   quick-tap-ms = <175>;
 };
 
-&caps_word {
-  /delete-property/ ignore-modifiers;
-};
-
 / {
   behaviors {
+    skcaps: sticky_keys_double_tap_caps {
+      compatible = "zmk,behavior-tap-dance";
+      #binding-cells = <0>;
+      tapping-term-ms = <250>;
+      bindings = <&sk LSFT>, <&kp CAPSLOCK>; // tap, double_tap
+    };
+
+    as: auto_shift {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      tapping-term-ms = <150>;
+      quick-tap-ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
+
     hml: hml {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
@@ -103,51 +112,66 @@
     };
   };
 
+  macros {
+    meh: meh {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_press &kp LCTRL &kp LALT &kp LSHFT
+                  &macro_pause_for_release
+                  &macro_release &kp LCTRL &kp LALT &kp LSHFT>;
+    };
+
+    esc_base: esc_base {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&kp ESC>, <&to 0>;
+    };
+  };
+
   combos {
     compatible = "zmk,combos";
     timeout-ms = <20>;
     require-prior-idle-ms = <250>;
 
-    combo_reset_layer_left {
-      key-positions = <20 24>;
-      bindings = <&to RESET>;
+    combo_lesc {
+        key-positions = <2 3 4>;
+        bindings = <&esc_base>;
     };
-    combo_reset_layer_right {
-      key-positions = <25 29>;
-      bindings = <&to RESET>;
+
+    combo_resc {
+        key-positions = <7 8 9>;
+        bindings = <&esc_base>;
     };
-    combo_reset_central {
-      key-positions = <32 33>;
-      bindings = <&bootloader>;
-      require-prior-idle-ms = <2000>;
+
+    combo_quote {
+        key-positions = <8 9>;
+        bindings = <&as LS(SINGLE_QUOTE) SINGLE_QUOTE>;
     };
-    combo_normal {
-      key-positions = <7 8>;
-      bindings = <&to BASE>;
+
+    combo_tilde {
+        key-positions = <2 3>;
+        bindings = <&as LS(GRAVE) GRAVE>;
     };
-    combo_fn {
-      key-positions = <27 28>;
-      bindings = <&sl FUNCTION>;
+
+    combo_sticky_shift {
+        key-positions = <14 21>;
+        timeout-ms = <75>;
+        bindings = <&skcaps>;
     };
-    combo_genshin {
-      key-positions = <5 9>;
-      bindings = <&to GAME>;
+
+    combo_scroll {
+        bindings = <&mo 4>;
+        key-positions = <32 33>;
     };
-    combo_esc {
-      key-positions = <1 2>;
-      bindings = <&kp ESCAPE>;
+
+    combo_slow_pointer {
+        bindings = <&mo 5>;
+        key-positions = <25 26>;
     };
-    combo_tab {
-      key-positions = <2 3>;
-      bindings = <&kp TAB>;
-    };
-    combo_cdel {
-      key-positions = <11 12>;
-      bindings = <&kp LC(BACKSPACE)>;
-    };
-    combo_unlock {
-      key-positions = <1 4>;
-      bindings = <&studio_unlock>;
+
+    combo_bootloader {
+        bindings = <&bootloader>;
+        key-positions = <1 10>;
     };
   };
   chosen {
@@ -160,70 +184,61 @@
     Base {
       display-name = "Base";
       bindings = <
-        &lt FUNCTION ESCAPE   &kp Q        &kp W        &kp E           &kp R        &kp T                     &kp Y                &kp U                      &kp I          &kp O         &kp P            &trans
-        &kp TAB           &hml LGUI A  &hml LALT S  &hml LSHFT D    &hml LCTRL F &kp G                     &kp H                &hmr RCTRL J               &hmr RSHFT K   &hmr RALT L   &hmr LGUI SEMI   &trans
-        &kp LSHFT         &kp Z        &mt LC(X) X  &mt LC(C) C     &kp V        &mt LC(V) B               &kp N                &kp M                      &kp COMMA      &kp DOT       &kp FSLH         &trans
-                                       &kp LCTRL    &mo 2     &mt LGUI RET          &lt NUMBER SPACE       &kp BSPC
+        &none &kp Q         &kp W         &kp F         &kp P            &kp B            &kp J          &kp L             &kp U         &kp Y            AS(SEMI)    &none
+        &none &hml LALT A   &hml LSHFT R   &lt 1 S      &hml LGUI T       &kp G            &kp M          &hmr RGUI N        &lt 2 E       &hmr RSHFT I      &hmr RCTRL O &none
+        &none &kp Z         &kp X         &kp C         &mt LC(LS(LALT)) D       &kp V            &kp K          &mt RC(RS(RALT)) H         AS(COMMA)     AS(DOT)          AS(SLASH)   &none
+                                          &lt 4 ESC         &kp ENTER        &mt LSHFT TAB    &kp BACKSPACE  &kp SPACE
       >;
+    };
+
+    Num {
+      display-name = "Num";
+      bindings = <
+        &none &trans   &trans     &trans   &trans    &trans          &kp PIPE   AS(N7)  AS(N8)  AS(N9)  &kp BSLH       &none
+        &none &trans   &kp LSHFT  &trans   &kp LGUI  &trans          &kp EQUAL  AS(N4)  AS(N5)  AS(N6)  &kp MINUS      &none
+        &none &trans   &trans     &trans   &trans    &trans          &kp PLUS   AS(N1)  AS(N2)  AS(N3)  &kp UNDERSCORE &none
+                                  &trans   &trans    &trans          &trans     AS(N0)
+      >;
+    };
+
+    Nav {
+      display-name = "Nav";
+      bindings = <
+        &none AS(GRAVE)  AS(LBKT)      &kp UP      AS(RBKT)     &kp C_NEXT     &trans   &trans   &trans &trans    &trans &none
+        &none &kp TAB    &kp LEFT      &kp DOWN    &kp RIGHT    &kp C_PP       &trans   &kp RGUI &trans &kp RSHFT &trans &none
+        &none &trans     &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP &kp C_PREV     &trans   &kp RALT &trans &kp RCTRL &trans &none
+                                        &trans      &trans      AS(GRAVE)      &trans   &trans
+        >;
     };
 
     Mouse {
       display-name = "Mouse";
       bindings = <
-        &trans   &trans   &trans   &trans    &trans    &trans            &trans &trans   &trans   &trans   &trans     &trans
-        &trans   &kp LGUI &kp LALT &kp LSHFT &kp LCTRL &trans            &trans &mkp MB1 &mkp MB2 &mkp MB3 &trans     &trans
-        &trans   &trans   &trans   &mo 3     &mo 2     &trans            &trans &trans   &trans   &trans   &trans     &trans
-                          &mkp MB1  &mkp MB2  &mkp MB3          &trans &trans
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans        &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans        &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &mkp MB1  &mkp MB3  &mkp MB2  &kp LG(LBKT)
+                            &trans    &trans    &trans    &trans    &trans
       >;
     };
 
-    Sym {
-      display-name = "Symbol";
+    Scroll {
+      display-name = "Scroll";
       bindings = <
-        &trans &none &none &kp LEFT_BRACE       &kp RIGHT_BRACE       &kp PIPE              &kp GRAVE &kp TILDE &kp LESS_THAN &kp GREATER_THAN &kp BACKSLASH        &trans
-        &trans &none &none &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp COLON             &kp PLUS  &kp MINUS &kp SLASH     &kp ASTRK        &kp SINGLE_QUOTE     &trans
-        &trans &none &none &kp LEFT_BRACKET     &kp RIGHT_BRACKET     &kp QUESTION          &kp AMPS  &kp EQUAL &kp UNDER     &kp PERIOD       &kp DOUBLE_QUOTES    &trans
-                    &none                &none                 &trans                &none     &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+                                  &trans    &trans    &trans    &trans    &trans
+
       >;
     };
 
-    Num {
-      display-name = "Number";
+    Snipe {
+      display-name = "Snipe";
       bindings = <
-        &trans   &none    &kp N7         &kp N8          &kp N9          &none                  &none         &kp PG_UP         &kp UP            &kp PG_DN         &none          &trans
-        &trans   &kp LGUI &hml_s LALT N4 &hml_s LSHFT N5 &hml_s LCTRL N6 &none                  &none         &hmr_s RCTRL LEFT &hmr_s RSHFT DOWN &hmr_s RALT RIGHT &kp RGUI       &trans
-        &trans   &none    &kp N1         &kp N2          &kp N3          &kp LC(MINUS)          &kp LC(EQUAL) &kp HOME          &trans            &kp END           &none          &trans
-                                &kp DOT         &kp N0          &kp SPACE              &trans        &none
-      >;
-    };
-
-    Fun {
-      display-name = "Function";
-      bindings = <
-        &trans    &kp LC(LA(DEL)) &kp F7 &kp F8 &kp F9 &kp F10          &none &none     &none     &none    &none      &trans
-        &trans    &none           &kp F4 &kp F5 &kp F6 &kp F11          &none &kp LCTRL &kp LSHFT &kp LALT &kp LGUI   &trans
-        &trans    &none           &kp F1 &kp F2 &kp F3 &kp F12          &none &none     &none     &none    &none      &trans
-                               &none  &none  &none            &none &none
-      >;
-    };
-
-    Button {
-      display-name = "Game";
-      bindings = <
-        &kp ESCAPE &kp ESCAPE &kp Q &kp W    &kp E     &kp R          &none  &none    &none    &none    &none   &trans
-        &trans &kp LCTRL  &kp A &kp S    &kp D     &kp F          &none  &mkp MB1 &mkp MB2 &mkp MB3 &none   &trans
-        &trans &kp LSHIFT &kp Z &kp X    &kp C     &kp V          &kp N1 &kp N2   &kp N3   &kp N4   &kp N5  &trans
-                         &kp LALT &kp SPACE &kp M          &kp T  &kp B
-      >;
-    };
-
-    Reset {
-      display-name = "Reset";
-      bindings = <
-        &trans &none &none &none &none &none                &none &none &none &none &none &trans
-        &trans &none &none &none &none &none                &none &none &none &none &none &trans
-        &trans &none &none &none &none &none                &none &none &none &none &none &trans
-                    &none &none &bootloader          &bootloader &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+                                  &trans    &trans    &trans    &trans    &trans
       >;
     };
   };
