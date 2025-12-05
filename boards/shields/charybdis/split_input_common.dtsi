@@ -23,7 +23,7 @@
     compatible = "zmk,input-listener";
     status = "disabled";
     device = <&trackball_split>;
-    input-processors = <&zip_xy_scaler 5 5>;
+    input-processors = <&zip_xy_scaler 8 8>;
 
     snipe {
       layers = <SNIPE>;
@@ -32,7 +32,7 @@
 
     scroll {
       layers = <SCROLL>;
-      input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 8>, <&zip_xy_to_scroll_mapper>;
+      input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 6>, <&zip_xy_to_scroll_mapper>;
     };
 
     move {
@@ -45,6 +45,6 @@
     compatible = "zmk,input-processor-temp-layer";
     #input-processor-cells = <2>;
     require-prior-idle-ms = <500>;
-    #excluded-positions = <30 31 32 16 17 18 10 11 12 13 22 23>;
+    excluded-positions = <32 33 34 35 36 37 38>;
   };
 };
