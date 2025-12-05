@@ -14,6 +14,17 @@
 #define THUMBS 30 31 32 33 34 35
 #define AS(keycode) &as LS(keycode) keycode     // Autoshift Macro
 
+/* --- KEYMAP CONFIG --- */
+// ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
+//    00     01     02     03    04      05        06     07     08     09     10     11
+// ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
+//    12     13     14     15    16      17        18     19     20     21     22     23
+// ├──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┤
+//    24     25     26     27    28      29        30     31     32     33     34     35
+// ╰──────┴──────┴──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┴──────┴──────┴──────╯
+//                         36     37     38        39     40
+//                      ╰──────┴──────┴──────╯  ╰──────┴──────╯
+
 
 &sk {
   release-after-ms = <600>;
@@ -98,7 +109,7 @@
         key-positions = <32 33>;
     };
 
-    combo_slow_pointer {
+    combo_snipe {
         bindings = <&mo 5>;
         key-positions = <25 26>;
     };
@@ -117,7 +128,7 @@
         &none &kp Q         &kp W         &kp F         &kp P            &kp B            &kp J          &kp L             &kp U         &kp Y            AS(SEMI)    &none
         &none &mt LALT A   &mt LSHFT R   &lt 1 S      &mt LGUI T       &kp G            &kp M          &mt RGUI N        &lt 2 E       &mt RSHFT I      &mt RCTRL O &none
         &none &kp Z         &kp X         &kp C         &mt LC(LS(LALT)) D       &kp V            &kp K          &mt RC(RS(RALT)) H         AS(COMMA)     AS(DOT)          AS(SLASH)   &none
-                                          &mo 4         &kp ENTER        &mt LSHFT TAB    &kp BACKSPACE  &kp SPACE
+                                          &mo 5         &kp ENTER        &lt 4 TAB    &kp BACKSPACE  &kp SPACE
       >;
     };
 
