@@ -21,13 +21,10 @@
 };
 
 &mt {
-  flavor = "tap-preferred";
-};
-
-&lt {
   flavor = "balanced";
-  tapping-term-ms = <200>;
-  quick-tap-ms = <175>;
+  quick-tap-ms = <100>;
+  require-prior-idle-ms = <30>;   // HUGE improvement
+  tapping-term-ms = <175>;        // Add this line
 };
 
 / {
@@ -46,69 +43,6 @@
       quick-tap-ms = <0>;
       flavor = "tap-preferred";
       bindings = <&kp>, <&kp>;
-    };
-
-    hml: hml {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <250>;
-      hold-trigger-key-positions = <KEYS_R THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
-    };
-
-    hmr: hmr {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <250>;
-      hold-trigger-key-positions = <KEYS_L THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
-    };
-    hml_s: hml_s {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <0>;
-      hold-trigger-key-positions = <KEYS_R THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
-    };
-
-    hmr_s: hmr_s {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <0>;
-      hold-trigger-key-positions = <KEYS_L THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
-    };
-
-
-    smart_shift: smart_shift {
-      compatible = "zmk,behavior-mod-morph";
-      #binding-cells = <0>;
-      bindings = <&sk LSHIFT>, <&caps_word>;
-      mods = <(MOD_LSFT)>;
     };
   };
 
@@ -168,12 +102,8 @@
         bindings = <&mo 5>;
         key-positions = <25 26>;
     };
-
-    combo_bootloader {
-        bindings = <&bootloader>;
-        key-positions = <1 10>;
-    };
   };
+
   chosen {
     zmk,physical-layout = &charybdis_6col_layout;
   };
@@ -185,9 +115,9 @@
       display-name = "Base";
       bindings = <
         &none &kp Q         &kp W         &kp F         &kp P            &kp B            &kp J          &kp L             &kp U         &kp Y            AS(SEMI)    &none
-        &none &hml LALT A   &hml LSHFT R   &lt 1 S      &hml LGUI T       &kp G            &kp M          &hmr RGUI N        &lt 2 E       &hmr RSHFT I      &hmr RCTRL O &none
+        &none &mt LALT A   &mt LSHFT R   &lt 1 S      &mt LGUI T       &kp G            &kp M          &mt RGUI N        &lt 2 E       &mt RSHFT I      &mt RCTRL O &none
         &none &kp Z         &kp X         &kp C         &mt LC(LS(LALT)) D       &kp V            &kp K          &mt RC(RS(RALT)) H         AS(COMMA)     AS(DOT)          AS(SLASH)   &none
-                                          &lt 4 ESC         &kp ENTER        &mt LSHFT TAB    &kp BACKSPACE  &kp SPACE
+                                          &mo 4         &kp ENTER        &mt LSHFT TAB    &kp BACKSPACE  &kp SPACE
       >;
     };
 
