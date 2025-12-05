@@ -313,5 +313,5 @@ combos:
   k: TAB
 - p: [11, 12]
   k: Ctl+ BACK SPACE
-- p: [0, 4]
+- p: [1, 4]
   k: ZMK Studio
