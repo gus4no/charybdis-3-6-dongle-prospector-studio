@@ -10,9 +10,9 @@
 #define GAME 5
 #define RESET 6
 
-#define KEYS_L 0 1 2 3 4 10 11 12 13 14 20 21 22 23 24  
+#define KEYS_L 0 1 2 3 4 10 11 12 13 14 20 21 22 23 24
 #define KEYS_R 5 6 7 8 9 15 16 17 18 19 25 26 27 28 29
-#define THUMBS 30 31 32 33 34 35  
+#define THUMBS 30 31 32 33 34 35
 
 &sk {
   release-after-ms = <600>;
@@ -146,7 +146,7 @@
       bindings = <&kp LC(BACKSPACE)>;
     };
     combo_unlock {
-      key-positions = <0 4>;
+      key-positions = <1 4>;
       bindings = <&studio_unlock>;
     };
   };
@@ -170,10 +170,10 @@
     Mouse {
       display-name = "Mouse";
       bindings = <
-        &trans   &trans   &trans   &trans    &trans    &trans            &trans &trans   &trans   &trans   &trans     &trans 
+        &trans   &trans   &trans   &trans    &trans    &trans            &trans &trans   &trans   &trans   &trans     &trans
         &trans   &kp LGUI &kp LALT &kp LSHFT &kp LCTRL &trans            &trans &mkp MB1 &mkp MB2 &mkp MB3 &trans     &trans
         &trans   &trans   &trans   &mo 3     &mo 2     &trans            &trans &trans   &trans   &trans   &trans     &trans
-                          &mkp MB1  &mkp MB2  &mkp MB3          &trans &trans 
+                          &mkp MB1  &mkp MB2  &mkp MB3          &trans &trans
       >;
     };
 
@@ -183,7 +183,7 @@
         &trans &none &none &kp LEFT_BRACE       &kp RIGHT_BRACE       &kp PIPE              &kp GRAVE &kp TILDE &kp LESS_THAN &kp GREATER_THAN &kp BACKSLASH        &trans
         &trans &none &none &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp COLON             &kp PLUS  &kp MINUS &kp SLASH     &kp ASTRK        &kp SINGLE_QUOTE     &trans
         &trans &none &none &kp LEFT_BRACKET     &kp RIGHT_BRACKET     &kp QUESTION          &kp AMPS  &kp EQUAL &kp UNDER     &kp PERIOD       &kp DOUBLE_QUOTES    &trans
-                    &none                &none                 &trans                &none     &none                                                                     
+                    &none                &none                 &trans                &none     &none
       >;
     };
 
@@ -200,8 +200,8 @@
     Fun {
       display-name = "Function";
       bindings = <
-        &trans    &kp LC(LA(DEL)) &kp F7 &kp F8 &kp F9 &kp F10          &none &none     &none     &none    &none      &trans        
-        &trans    &none           &kp F4 &kp F5 &kp F6 &kp F11          &none &kp LCTRL &kp LSHFT &kp LALT &kp LGUI   &trans     
+        &trans    &kp LC(LA(DEL)) &kp F7 &kp F8 &kp F9 &kp F10          &none &none     &none     &none    &none      &trans
+        &trans    &none           &kp F4 &kp F5 &kp F6 &kp F11          &none &kp LCTRL &kp LSHFT &kp LALT &kp LGUI   &trans
         &trans    &none           &kp F1 &kp F2 &kp F3 &kp F12          &none &none     &none     &none    &none      &trans
                                &none  &none  &none            &none &none
       >;
@@ -210,30 +210,21 @@
     Button {
       display-name = "Game";
       bindings = <
-        &kp ESCAPE &kp ESCAPE &kp Q &kp W    &kp E     &kp R          &none  &none    &none    &none    &none   &trans   
-        &trans &kp LCTRL  &kp A &kp S    &kp D     &kp F          &none  &mkp MB1 &mkp MB2 &mkp MB3 &none   &trans 
+        &kp ESCAPE &kp ESCAPE &kp Q &kp W    &kp E     &kp R          &none  &none    &none    &none    &none   &trans
+        &trans &kp LCTRL  &kp A &kp S    &kp D     &kp F          &none  &mkp MB1 &mkp MB2 &mkp MB3 &none   &trans
         &trans &kp LSHIFT &kp Z &kp X    &kp C     &kp V          &kp N1 &kp N2   &kp N3   &kp N4   &kp N5  &trans
-                         &kp LALT &kp SPACE &kp M          &kp T  &kp B                      
+                         &kp LALT &kp SPACE &kp M          &kp T  &kp B
       >;
     };
 
     Reset {
       display-name = "Reset";
       bindings = <
-        &trans &none &none &none &none &none                &none &none &none &none &none &trans      
-        &trans &none &none &none &none &none                &none &none &none &none &none &trans   
         &trans &none &none &none &none &none                &none &none &none &none &none &trans
-                    &none &none &bootloader          &bootloader &none                
+        &trans &none &none &none &none &none                &none &none &none &none &none &trans
+        &trans &none &none &none &none &none                &none &none &none &none &none &trans
+                    &none &none &bootloader          &bootloader &none
       >;
     };
   };
 };
-
-
-
-
-
-
-
-
-
