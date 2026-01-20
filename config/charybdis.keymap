@@ -33,9 +33,9 @@
 
 &mt {
   flavor = "balanced";
-  quick-tap-ms = <100>;
-  require-prior-idle-ms = <30>;   // HUGE improvement
-  tapping-term-ms = <175>;        // Add this line
+  quick-tap-ms = <150>;
+  require-prior-idle-ms = <80>;   // HUGE improvement
+  tapping-term-ms = <200>;        // Add this line
 };
 
 / {
@@ -157,7 +157,7 @@
       bindings = <
         &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans        &none
         &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans        &none
-        &none &trans    &trans    &trans    &trans    &trans    &trans    &mkp MB1  &mkp MB3  &mkp MB2  &kp LG(LBKT)
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &mkp MB1  &mkp MB3  &mkp MB2  &kp LG(LBKT)  &none
                             &trans    &trans    &trans    &trans    &trans
       >;
     };
@@ -178,7 +178,7 @@
       bindings = <
         &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
         &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
-        &none &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans &none
+        &none &trans    &trans    &trans    &trans    &trans    &trans    &mkp MB1  &mkp MB3  &mkp MB2  &kp LG(LBKT)  &none
                                   &trans    &trans    &trans    &trans    &trans
       >;
     };
