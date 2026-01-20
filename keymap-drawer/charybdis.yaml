@@ -267,3 +267,5 @@ combos:
   k: Scroll
 - p: [25, 26]
   k: Snipe
+- p: [31, 32]
+  k: '&meh'

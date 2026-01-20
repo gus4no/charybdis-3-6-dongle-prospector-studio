@@ -117,7 +117,7 @@
     combo_meh {
         key-positions = <31 32>;
         bindings = <&meh>;
-    }
+    };
   };
 
   chosen {
