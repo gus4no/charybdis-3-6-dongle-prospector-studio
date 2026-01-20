@@ -113,6 +113,11 @@
         bindings = <&mo 5>;
         key-positions = <25 26>;
     };
+
+    combo_meh {
+        key-positions = <31 32>;
+        bindings = <&meh>;
+    }
   };
 
   chosen {

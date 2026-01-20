@@ -36,13 +36,13 @@
 
     move {
       layers = <BASE MOUSE>;
-      input-processors = <&zip_xy_scaler 8 8>, <&auto_mouse_layer MOUSE 800>;
+      input-processors = <&zip_xy_scaler 4 4>, <&auto_mouse_layer MOUSE 800>;
     };
   };
 
   auto_mouse_layer: auto_mouse_layer {
     compatible = "zmk,input-processor-temp-layer";
     #input-processor-cells = <2>;
-    require-prior-idle-ms = <1000>;
+    require-prior-idle-ms = <800>;
   };
 };
